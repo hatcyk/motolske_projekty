@@ -5,6 +5,10 @@ __pycache__/
 
 # C extensions
 *.so
+.claude
+zadani.md
+changelog.md
+utils/game_stats.json
 
 # Distribution / packaging
 .Python
