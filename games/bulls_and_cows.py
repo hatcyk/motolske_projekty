@@ -7,6 +7,7 @@ discord: hatsukooo
 """
 
 import random
+from utils.timer import start_timer, stop_timer, format_time
 
 
 def generate_secret_number():
@@ -151,6 +152,9 @@ def get_performance_message(guesses):
 
 def play_bulls_and_cows():
     """Hlavní funkce pro hraní Bulls & Cows."""
+    # Spustit časovač
+    start_time = start_timer()
+
     # Zobrazit uvítací zprávu
     display_welcome()
 
@@ -182,12 +186,16 @@ def play_bulls_and_cows():
 
         # Zkontrolovat výhru
         if bulls == 4:
+            # Zastavit časovač
+            elapsed_time = stop_timer(start_time)
             print("Correct, you've guessed the right number")
             print(f"in {guesses} guesses!")
             print("-----------------------------------------------")
             # Zobrazit hodnocení výkonu
             performance = get_performance_message(guesses)
             print(f"That's {performance}")
+            # Zobrazit čas
+            print(f"Time: {format_time(elapsed_time)}")
             break
 
         # Zobrazit výsledek

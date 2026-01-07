@@ -28,9 +28,8 @@ def main():
             from games.bulls_and_cows import play_bulls_and_cows
             play_bulls_and_cows()
         elif choice == "2":
-            print("\n[Tic-tac-toe bude implementována]")
-            # from games.tic_tac_toe import play_tic_tac_toe
-            # play_tic_tac_toe()
+            from games.tic_tac_toe import play_tic_tac_toe
+            play_tic_tac_toe()
         elif choice == "3":
             print("\nDěkuji za hru! Nashledanou!")
             break
