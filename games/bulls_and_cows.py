@@ -33,10 +33,10 @@ def generate_secret_number():
 
 def display_welcome():
     """Zobrazí uvítací zprávu hry."""
-    print("Hi there!")
+    print("Ahoj!")
     print("-----------------------------------------------")
-    print("I've generated a random 4 digit number for you.")
-    print("Let's play a bulls and cows game.")
+    print("Vygeneroval jsem pro tebe náhodné 4-místné číslo.")
+    print("Pojďme si zahrát hru Bulls & Cows.")
     print("-----------------------------------------------")
 
 
@@ -142,13 +142,13 @@ def get_performance_message(guesses):
         str: Hodnocení výkonu
     """
     if guesses <= 3:
-        return "amazing"
+        return "úžasné"
     elif guesses <= 6:
-        return "average"
+        return "průměrné"
     elif guesses <= 10:
-        return "not so good"
+        return "mohlo být lepší"
     else:
-        return "better luck next time"
+        return "příště to půjde lépe"
 
 
 def play_bulls_and_cows():
@@ -169,7 +169,7 @@ def play_bulls_and_cows():
     # Herní smyčka
     while True:
         # Získat vstup od hráče
-        print("Enter a number:")
+        print("Zadej číslo:")
         print("-----------------------------------------------")
         guess = input(">>> ").strip()
         guesses += 1
@@ -189,14 +189,14 @@ def play_bulls_and_cows():
         if bulls == 4:
             # Zastavit časovač
             elapsed_time = stop_timer(start_time)
-            print("Correct, you've guessed the right number")
-            print(f"in {guesses} guesses!")
+            print("Správně! Uhodl jsi správné číslo")
+            print(f"na {guesses} pokusů!")
             print("-----------------------------------------------")
             # Zobrazit hodnocení výkonu
             performance = get_performance_message(guesses)
-            print(f"That's {performance}")
+            print(f"To je {performance}!")
             # Zobrazit čas
-            print(f"Time: {format_time(elapsed_time)}")
+            print(f"Čas: {format_time(elapsed_time)}")
             # Uložit statistiky
             add_bulls_cows_result(guesses, elapsed_time)
             break

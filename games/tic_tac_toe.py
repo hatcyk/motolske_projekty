@@ -12,18 +12,17 @@ from utils.statistics import add_tic_tac_toe_result
 
 def display_welcome_and_rules():
     """Zobrazí uvítací zprávu a pravidla hry."""
-    print("Welcome to Tic Tac Toe")
+    print("Vítej ve hře Piškvorky (Tic Tac Toe)")
     print("=" * 40)
-    print("GAME RULES:")
-    print("Each player can place one mark (or stone)")
-    print("per turn on the 3x3 grid. The WINNER is")
-    print("who succeeds in placing three of their")
-    print("marks in a:")
-    print("* horizontal,")
-    print("* vertical or")
-    print("* diagonal row")
+    print("PRAVIDLA HRY:")
+    print("Každý hráč může umístit jednu značku (kámen)")
+    print("za tah na hrací pole 3x3. VÍTĚZ je ten,")
+    print("kdo dokáže umístit tři své značky v řadě:")
+    print("* horizontálně,")
+    print("* vertikálně nebo")
+    print("* diagonálně")
     print("=" * 40)
-    print("Let's start the game")
+    print("Začínáme hru!")
 
 
 def initialize_board():
@@ -202,7 +201,7 @@ def play_tic_tac_toe():
         print("=" * 40)
 
         # Vyzvat hráče k tahu
-        move_input = input(f"Player {current_player.lower()} | Please enter your move number: ").strip()
+        move_input = input(f"Hráč {current_player} | Zadej číslo pole (1-9): ").strip()
 
         # Validovat tah
         is_valid, position, error = validate_move(move_input, board)
@@ -219,8 +218,8 @@ def play_tic_tac_toe():
             elapsed_time = stop_timer(start_time)
             display_board(board)
             print("=" * 40)
-            print(f"Congratulations, the player {winner.lower()} WON!")
-            print(f"Time: {format_time(elapsed_time)}")
+            print(f"Gratulujeme! Hráč {winner} VYHRÁL!")
+            print(f"Čas: {format_time(elapsed_time)}")
             print("=" * 40)
             # Uložit statistiky
             add_tic_tac_toe_result(winner, elapsed_time)
@@ -231,8 +230,8 @@ def play_tic_tac_toe():
             elapsed_time = stop_timer(start_time)
             display_board(board)
             print("=" * 40)
-            print("It's a draw!")
-            print(f"Time: {format_time(elapsed_time)}")
+            print("Remíza! Nikdo nevyhrál.")
+            print(f"Čas: {format_time(elapsed_time)}")
             print("=" * 40)
             # Uložit statistiky
             add_tic_tac_toe_result('draw', elapsed_time)
