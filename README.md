@@ -25,6 +25,7 @@ Repositář obsahuje domácí úkoly z předmětu Programování (Python). Jedno
 4. **Úkol 4** - Práce s daty (počítání výskytů, analýza textu)
 5. **Úkol 5** - Kalkulačka a interaktivní programy
 6. **Bulls & Cows** - Hra na hádání čtyřciferného čísla
+7. **Tic-tac-toe** - Piškvorky pro dva hráče
 
 ### Spuštění
 
@@ -45,7 +46,8 @@ Program zobrazí interaktivní menu s výběrem úkolů.
 │   ├── prace_se_sety.py       # Práce se sety a ověřování
 │   ├── prace_s_daty.py        # Analýza dat
 │   ├── kalkulacka.py          # Kalkulačka a interaktivní programy
-│   └── bulls_and_cows.py      # Bulls & Cows hra
+│   ├── bulls_and_cows.py      # Bulls & Cows hra
+│   └── tic_tac_toe.py         # Tic-tac-toe piškvorky
 ├── README.md
 └── LICENSE
 ```

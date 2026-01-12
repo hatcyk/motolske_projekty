@@ -7,7 +7,7 @@ Autor: Štefan Barát
 Škola: Střední průmyslová škola dopravní
 """
 
-from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka, bulls_and_cows
+from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka, bulls_and_cows, tic_tac_toe
 
 
 def vypis_header():
@@ -32,11 +32,12 @@ def hlavni_menu():
         print("4. Práce s daty - počítání výskytů")
         print("5. Kalkulačka a interaktivní programy")
         print("6. Bulls & Cows - hádání čísla")
+        print("7. Tic-tac-toe - piškvorky")
         print("-"*60)
         print("0. Konec")
         print("="*60)
         
-        volba = input("\nVyberte úkol (0-6): ").strip()
+        volba = input("\nVyberte úkol (0-7): ").strip()
         
         if volba == "1":
             plocha_trojuhelniku.plocha_trojuhelniku()
@@ -50,6 +51,8 @@ def hlavni_menu():
             kalkulacka.main()
         elif volba == "6":
             bulls_and_cows.main()
+        elif volba == "7":
+            tic_tac_toe.main()
         elif volba == "0":
             print("\n" + "="*60)
             print("Děkuji za použití! Na shledanou! 👋")
