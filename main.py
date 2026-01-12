@@ -7,7 +7,7 @@ Autor: Štefan Barát
 Škola: Střední průmyslová škola dopravní
 """
 
-from ukoly import ukol_01, ukol_02, ukol_03, ukol_04, ukol_05
+from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka
 
 
 def vypis_header():
@@ -38,15 +38,15 @@ def hlavni_menu():
         volba = input("\nVyberte úkol (0-5): ").strip()
         
         if volba == "1":
-            ukol_01.plocha_trojuhelniku()
+            plocha_trojuhelniku.plocha_trojuhelniku()
         elif volba == "2":
-            ukol_02.hadani_pismene_dne()
+            hadani_pismene_dne.hadani_pismene_dne()
         elif volba == "3":
-            ukol_03.main()
+            prace_se_sety.main()
         elif volba == "4":
-            ukol_04.main()
+            prace_s_daty.main()
         elif volba == "5":
-            ukol_05.main()
+            kalkulacka.main()
         elif volba == "0":
             print("\n" + "="*60)
             print("Děkuji za použití! Na shledanou! 👋")

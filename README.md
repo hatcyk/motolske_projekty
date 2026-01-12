@@ -1,6 +1,19 @@
 # Školní projekty
 
-[![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/)
+[![Python](https://### Struktura projektu
+
+```
+├── main.py                     # Hlavní program s menu
+├── ukoly/                      # Balíček s jednotlivými úkoly
+│   ├── __init__.py
+│   ├── plocha_trojuhelniku.py # Výpočet plochy trojúhelníku
+│   ├── hadani_pismene_dne.py  # Hádání prvního písmene dne
+│   ├── prace_se_sety.py       # Práce se sety a ověřování
+│   ├── prace_s_daty.py        # Analýza dat
+│   └── kalkulacka.py          # Kalkulačka a interaktivní programy
+├── README.md
+└── LICENSE
+```/badge/Python-3.6+-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Repositář obsahující různé školní projekty a domácí úkoly implementované v Pythonu.
