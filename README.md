@@ -16,16 +16,46 @@ Repositář obsahující různé školní projekty a domácí úkoly implementov
 **Email:** barat70671@mot.sps-dopravni.cz  
 **Discord:** hatsukooo
 
-## Obecné požadavky
+## Domácí úkoly
+
+Repositář obsahuje domácí úkoly z předmětu Programování (Python). Jednotlivé úkoly jsou umístěny v balíčku `ukoly/`.
+
+### Dostupné úkoly
+
+1. **Úkol 1** - Výpočet plochy trojúhelníku
+2. **Úkol 2** - Hádání prvního písmene dne v týdnu
+3. **Úkol 3** - Práce se sety a ověřování hesla
+4. **Úkol 4** - Práce s daty (počítání výskytů, analýza textu)
+5. **Úkol 5** - Kalkulačka a interaktivní programy
+
+### Spuštění
 
 ```bash
-- Python 3.6+
-- tkinter (součást standardní Python instalace)
-- Žádné externí knihovny nejsou potřeba (pokud není uvedeno jinak u konkrétního projektu)
+python3 main.py
 ```
+
+Program zobrazí interaktivní menu s výběrem úkolů.
+
+### Struktura projektu
+
+```
+├── main.py                # Hlavní program s menu
+├── ukoly/                 # Balíček s jednotlivými úkoly
+│   ├── __init__.py
+│   ├── ukol_01.py        # Plocha trojúhelníku
+│   ├── ukol_02.py        # Hádání písmene dne
+│   ├── ukol_03.py        # Práce se sety
+│   ├── ukol_04.py        # Analýza dat
+│   └── ukol_05.py        # Kalkulačka
+├── README.md
+└── LICENSE
+```
+
+## Obecné požadavky
+
+- Python 3.6+
+- Žádné externí knihovny nejsou potřeba
 
 ## Licence
 
 Tyto projekty jsou licencovány pod MIT licencí. Viz soubor [LICENSE](LICENSE) pro podrobnosti.
-
-![Logo školy](https://www.sps-dopravni.cz/wp-content/uploads/2025/07/SPSD_logo_horizontal_2023_2.png)
