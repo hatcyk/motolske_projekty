@@ -29,16 +29,33 @@ Repositář obsahuje domácí úkoly z předmětu Programování (Python). Jedno
 
 ### Spuštění
 
+**Instalace závislostí:**
+```bash
+pip install -r requirements.txt
+```
+
+**Spuštění aplikace:**
 ```bash
 python3 main.py
 ```
 
-Program zobrazí interaktivní menu s výběrem úkolů.
+Program otevře GUI okno s výběrem rozhraní (bez konzole na pozadí):
+- **Rozhraní CLI** - zavře GUI a otevře nový terminál s textovým menu
+- **Rozhraní GUI** - zobrazí grafické rozhraní (v přípravě)
+- **Konec** - ukončí aplikaci
+
+**Alternativně - přímé spuštění CLI:**
+```bash
+python3 cli_menu.py
+```
+
+Po výběru CLI se zobrazí interaktivní menu s výběrem úkolů (1-7).
 
 ### Struktura projektu
 
 ```
-├── main.py                     # Hlavní program s menu
+├── main.py                     # GUI launcher (spouští se první)
+├── cli_menu.py                 # CLI menu (textové rozhraní)
 ├── ukoly/                      # Balíček s jednotlivými úkoly
 │   ├── __init__.py
 │   ├── plocha_trojuhelniku.py # Výpočet plochy trojúhelníku
@@ -48,6 +65,7 @@ Program zobrazí interaktivní menu s výběrem úkolů.
 │   ├── kalkulacka.py          # Kalkulačka a interaktivní programy
 │   ├── bulls_and_cows.py      # Bulls & Cows hra
 │   └── tic_tac_toe.py         # Tic-tac-toe piškvorky
+├── requirements.txt
 ├── README.md
 └── LICENSE
 ```
@@ -55,7 +73,21 @@ Program zobrazí interaktivní menu s výběrem úkolů.
 ## Obecné požadavky
 
 - Python 3.6+
-- Žádné externí knihovny nejsou potřeba
+- Flet (pro GUI rozhraní) - `pip install flet`
+- PyInstaller (pro vytvoření standalone aplikace) - `pip install pyinstaller`
+
+## 📦 Vytvoření standalone aplikace
+
+Pro vytvoření aplikace bez potřeby Pythonu viz [BUILD.md](BUILD.md).
+
+**Rychlý start:**
+- **macOS**: `./build_macos.sh` → vytvoří `Domácí úkoly.app`
+- **Windows**: `build_windows.bat` → vytvoří `Domácí úkoly.exe`
+
+Výsledná aplikace:
+- ✅ Spustí se bez konzole
+- ✅ Obsahuje všechny závislosti
+- ✅ Nereaguje na Python instalaci
 
 ## Licence
 

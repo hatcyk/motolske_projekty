@@ -2,73 +2,122 @@
 # -*- coding: utf-8 -*-
 
 """
-Domácí úkoly z Pythonu - Hlavní menu
+Domácí úkoly z Pythonu - Hlavní menu (GUI launcher)
 Autor: Štefan Barát
 Škola: Střední průmyslová škola dopravní
 """
 
-from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka, bulls_and_cows, tic_tac_toe
-
-
-def vypis_header():
-    """Zobrazí úvodní zprávu."""
-    print("\n" + "="*60)
-    print(" "*15 + "DOMÁCÍ ÚKOLY Z PYTHONU")
-    print("="*60)
-    print("Autor: Štefan Barát")
-    print("Škola: Střední průmyslová škola dopravní")
-    print("="*60 + "\n")
-
-
-def hlavni_menu():
-    """Hlavní menu pro výběr úkolu."""
-    while True:
-        print("\n" + "="*60)
-        print("SEZNAM ÚKOLŮ")
-        print("="*60)
-        print("1. Výpočet plochy trojúhelníku")
-        print("2. Hádání prvního písmene dne v týdnu")
-        print("3. Práce se sety a ověřování hesla")
-        print("4. Práce s daty - počítání výskytů")
-        print("5. Kalkulačka a interaktivní programy")
-        print("6. Bulls & Cows - hádání čísla")
-        print("7. Tic-tac-toe - piškvorky")
-        print("-"*60)
-        print("0. Konec")
-        print("="*60)
-        
-        volba = input("\nVyberte úkol (0-7): ").strip()
-        
-        if volba == "1":
-            plocha_trojuhelniku.plocha_trojuhelniku()
-        elif volba == "2":
-            hadani_pismene_dne.hadani_pismene_dne()
-        elif volba == "3":
-            prace_se_sety.main()
-        elif volba == "4":
-            prace_s_daty.main()
-        elif volba == "5":
-            kalkulacka.main()
-        elif volba == "6":
-            bulls_and_cows.main()
-        elif volba == "7":
-            tic_tac_toe.main()
-        elif volba == "0":
-            print("\n" + "="*60)
-            print("Děkuji za použití! Na shledanou! 👋")
-            print("="*60 + "\n")
-            break
-        else:
-            print("\n✗ Neplatná volba! Zkus znovu.")
-        
-        if volba in ["1", "2"]:
-            input("\nStiskni Enter pro návrat do menu...")
+import sys
+import os
+import subprocess
+import flet as ft
 
 
 def main():
-    """Spuštění programu."""
-    vypis_header()
-    hlavni_menu()
+    """Spuštění programu - zobrazí GUI volbu."""
+    # Vytvoření Flet aplikace
+    def gui_app(page: ft.Page):
+        page.title = "Domácí úkoly z Pythonu"
+        page.window.width = 400
+        page.window.height = 300
+        page.window.resizable = False
+        page.padding = 20
+        
+        def spustit_cli(e):
+            """Zavře GUI a spustí CLI rozhraní v novém terminálu."""
+            # Cesta ke CLI skriptu
+            cli_script = os.path.join(os.path.dirname(__file__), 'cli_menu.py')
+            project_dir = os.path.dirname(os.path.abspath(__file__))
+            
+            # Spustí nový terminál s CLI podle OS
+            if sys.platform == "darwin":  # macOS
+                # AppleScript pro spuštění nového okna Terminálu
+                subprocess.Popen([
+                    'osascript', '-e',
+                    f'tell app "Terminal" to do script "cd \\"{project_dir}\\" && python3 \\"{cli_script}\\""'
+                ])
+            elif sys.platform == "win32":  # Windows
+                subprocess.Popen(['start', 'cmd', '/k', 'python', cli_script], shell=True)
+            else:  # Linux
+                subprocess.Popen(['x-terminal-emulator', '-e', 'python3', cli_script])
+            
+            # Zavře GUI okno
+            page.window.close()
+        
+        def spustit_gui(e):
+            """Spustí GUI rozhraní (zatím prázdné)."""
+            page.controls.clear()
+            page.add(
+                ft.Text("GUI rozhraní", size=30, weight=ft.FontWeight.BOLD),
+                ft.Text("Funkce bude doplněna...", size=16),
+                ft.Button("Zpět", on_click=lambda e: page.window.close())
+            )
+            page.update()
+        
+        def ukoncit(e):
+            """Ukončí aplikaci."""
+            page.window.close()
+        
+        # Nadpis
+        nadpis = ft.Text(
+            "Domácí úkoly z Pythonu",
+            size=24,
+            weight=ft.FontWeight.BOLD,
+            text_align=ft.TextAlign.CENTER
+        )
+        
+        # Podnadpis
+        autor = ft.Text(
+            "Autor: Štefan Barát",
+            size=14,
+            text_align=ft.TextAlign.CENTER,
+            color=ft.Colors.GREY_700
+        )
+        
+        # Tlačítka
+        btn_cli = ft.Button(
+            "Rozhraní CLI",
+            on_click=spustit_cli,
+            width=200,
+            height=50,
+            icon=ft.Icons.TERMINAL,
+            style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
+        )
+        
+        btn_gui = ft.Button(
+            "Rozhraní GUI",
+            on_click=spustit_gui,
+            width=200,
+            height=50,
+            icon=ft.Icons.WINDOW,
+            style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
+        )
+        
+        btn_konec = ft.Button(
+            "Konec",
+            on_click=ukoncit,
+            width=200,
+            height=50,
+            icon=ft.Icons.EXIT_TO_APP,
+            color=ft.Colors.RED_400,
+            style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
+        )
+        
+        # Přidání všech prvků na stránku
+        page.add(
+            ft.Container(height=10),
+            nadpis,
+            autor,
+            ft.Container(height=20),
+            ft.Column(
+                [btn_cli, btn_gui, btn_konec],
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                spacing=10
+            )
+        )
+    
+    # Spuštění Flet aplikace
+    ft.run(target=gui_app)
 
 
 if __name__ == "__main__":
