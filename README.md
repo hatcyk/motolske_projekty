@@ -1,6 +1,10 @@
-# Školní projekty - NEDOKONČENO WIP
+# Školní projekty - Domácí úkoly z Pythonu
 
-Repositář obsahující různé školní projekty a domácí úkoly implementované v Pythonu.
+Repositář obsahující různé školní projekty a domácí úkoly implementované v Pythonu s **GUI i CLI rozhraním**.
+
+[![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://www.python.org/)
+[![Flet](https://img.shields.io/badge/Flet-0.80+-purple.svg)](https://flet.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ## Škola
 
@@ -41,7 +45,11 @@ python3 main.py
 
 Program otevře GUI okno s výběrem rozhraní (bez konzole na pozadí):
 - **Rozhraní CLI** - zavře GUI a otevře nový terminál s textovým menu
-- **Rozhraní GUI** - zobrazí grafické rozhraní (v přípravě)
+- **Rozhraní GUI** - zobrazí grafické rozhraní s 7 úkoly
+  - ✅ Úkol 1, 2, 5 - plně funkční GUI
+  - 🎮 **Bulls & Cows** - kompletní GUI s historií a časem
+  - 🎮 **Tic-tac-toe** - interaktivní 3x3 grid s detekcí výhry
+  - 📝 Úkol 3, 4 - dostupné pouze v CLI (GUI připravováno)
 - **Konec** - ukončí aplikaci
 
 **Alternativně - přímé spuštění CLI:**
@@ -56,7 +64,16 @@ Po výběru CLI se zobrazí interaktivní menu s výběrem úkolů (1-7).
 ```
 ├── main.py                     # GUI launcher (spouští se první)
 ├── cli_menu.py                 # CLI menu (textové rozhraní)
-├── ukoly/                      # Balíček s jednotlivými úkoly
+├── gui/                        # GUI moduly pro jednotlivé úkoly
+│   ├── __init__.py
+│   ├── trojuhelnik.py         # GUI pro trojúhelník
+│   ├── pismeno_dne.py         # GUI pro hádání písmene
+│   ├── sety.py                # GUI pro sety (placeholder)
+│   ├── data.py                # GUI pro data (placeholder)
+│   ├── kalkulacka.py          # GUI pro kalkulačku
+│   ├── bulls_cows.py          # GUI pro Bulls & Cows hru 🎮
+│   └── tic_tac_toe.py         # GUI pro Tic-tac-toe hru 🎮
+├── ukoly/                      # Balíček s jednotlivými úkoly (CLI)
 │   ├── __init__.py
 │   ├── plocha_trojuhelniku.py # Výpočet plochy trojúhelníku
 │   ├── hadani_pismene_dne.py  # Hádání prvního písmene dne
@@ -88,6 +105,34 @@ Výsledná aplikace:
 - ✅ Spustí se bez konzole
 - ✅ Obsahuje všechny závislosti
 - ✅ Nereaguje na Python instalaci
+
+## 📚 Dokumentace
+
+**📖 [INDEX.md](INDEX.md) - Úplný přehled všech dokumentů**
+
+### Rychlé odkazy:
+- **[QUICKSTART.md](QUICKSTART.md)** - Rychlý průvodce pro začátečníky
+- **[BUILD.md](BUILD.md)** - Detailní build instrukce
+- **[HOW_IT_WORKS.md](HOW_IT_WORKS.md)** - Jak projekt funguje (E2E)
+- **[CHANGELOG.md](CHANGELOG.md)** - Historie změn
+- **[TESTING.md](TESTING.md)** - Testing checklist
+- **[SUMMARY.md](SUMMARY.md)** - Kompletní přehled modularizace
+
+## 🎮 Implementované hry
+
+### Bulls & Cows GUI
+- 🎯 Hádání 4-místného čísla
+- 📊 Historie všech pokusů
+- ⏱️ Měření času
+- 🇨🇿 České gramatické tvary
+- ✨ Hodnocení výsledku
+
+### Tic-tac-toe GUI
+- 🎨 Interaktivní 3x3 grid
+- 👥 Dva hráči (O vs X)
+- 🏆 Detekce výhry a remízy
+- 🎨 Barevné odlišení hráčů
+- ✨ Zvýraznění výherní kombinace
 
 ## Licence
 

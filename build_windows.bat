@@ -25,6 +25,7 @@ pyinstaller ^
     --windowed ^
     --onefile ^
     --add-data="ukoly;ukoly" ^
+    --add-data="gui;gui" ^
     --add-data="cli_menu.py;." ^
     --collect-all=flet ^
     --exclude-module=flet.testing ^

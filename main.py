@@ -16,9 +16,19 @@ import flet as ft
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+# Import GUI modulů
+from gui import trojuhelnik
+from gui import pismeno_dne
+from gui import sety
+from gui import data
+from gui import kalkulacka
+from gui import bulls_cows
+from gui import tic_tac_toe
+
 
 def main():
     """Spuštění programu - zobrazí GUI volbu."""
+    
     # Vytvoření Flet aplikace
     def gui_app(page: ft.Page):
         page.title = "Domácí úkoly z Pythonu"
@@ -112,34 +122,77 @@ def main():
             page.update()
         
         def spustit_gui(e):
-            """Spustí GUI rozhraní (zatím prázdné)."""
+            """Spustí GUI rozhraní."""
             page.controls.clear()
+            
+            # Zvětšení okna pro GUI menu
+            page.window.width = 700
+            page.window.height = 600
+            page.update()
             
             def zpet_do_menu(e):
                 """Vrátí se zpět do hlavního menu."""
+                # Vrácení původní velikosti okna
+                page.window.width = 650
+                page.window.height = 250
                 page.controls.clear()
                 page.add(
                     ft.Container(height=10),
                     nadpis,
                     autor,
                     ft.Container(height=20),
-                    ft.Column(
+                    ft.Row(
                         [btn_cli, btn_gui, btn_konec],
-                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                        alignment=ft.MainAxisAlignment.CENTER,
                         spacing=10
                     )
                 )
                 page.update()
             
-            page.add(
-                ft.Container(height=10),
-                ft.Text("GUI rozhraní", size=30, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
-                ft.Container(height=10),
-                ft.Text("Funkce bude doplněna...", size=16, text_align=ft.TextAlign.CENTER),
-                ft.Container(height=20),
-                ft.Button("← Zpět", on_click=zpet_do_menu, width=200, height=50)
-            )
-            page.update()
+            def spustit_ukol_gui(ukol_cislo):
+                """Spustí konkrétní úkol v GUI."""
+                page.controls.clear()
+                
+                if ukol_cislo == 1:
+                    trojuhelnik.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 2:
+                    pismeno_dne.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 3:
+                    sety.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 4:
+                    data.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 5:
+                    kalkulacka.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 6:
+                    bulls_cows.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 7:
+                    tic_tac_toe.zobraz_ukol(page, zpet_do_gui_menu)
+                
+                page.update()
+            
+            def zpet_do_gui_menu():
+                """Vrátí se do GUI menu úkolů."""
+                page.controls.clear()
+                page.add(
+                    ft.Container(height=10),
+                    ft.Text("GUI - Seznam úkolů", size=24, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                    ft.Container(height=10),
+                    ft.Column([
+                        ft.Button("1. Výpočet plochy trojúhelníku", on_click=lambda e: spustit_ukol_gui(1), width=400),
+                        ft.Button("2. Hádání prvního písmene dne", on_click=lambda e: spustit_ukol_gui(2), width=400),
+                        ft.Button("3. Práce se sety", on_click=lambda e: spustit_ukol_gui(3), width=400),
+                        ft.Button("4. Práce s daty", on_click=lambda e: spustit_ukol_gui(4), width=400),
+                        ft.Button("5. Kalkulačka", on_click=lambda e: spustit_ukol_gui(5), width=400),
+                        ft.Button("6. Bulls & Cows", on_click=lambda e: spustit_ukol_gui(6), width=400),
+                        ft.Button("7. Tic-tac-toe", on_click=lambda e: spustit_ukol_gui(7), width=400),
+                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
+                    ft.Container(height=10),
+                    ft.Button("← Zpět do hlavního menu", on_click=zpet_do_menu, width=200)
+                )
+                page.update()
+            
+            # Zobraz GUI menu
+            zpet_do_gui_menu()
         
         def ukoncit(e):
             """Ukončí aplikaci - zavře okno."""
