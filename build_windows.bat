@@ -27,6 +27,8 @@ pyinstaller ^
     --add-data="ukoly;ukoly" ^
     --add-data="cli_menu.py;." ^
     --collect-all=flet ^
+    --exclude-module=flet.testing ^
+    --exclude-module=numpy ^
     --noconfirm ^
     main.py
 
