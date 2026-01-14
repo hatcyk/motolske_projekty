@@ -11,18 +11,18 @@ Discord: hatsukooo
 
 def zobraz_uvod():
     """Zobrazí úvodní text a pravidla hry."""
-    print("\nWelcome to Tic Tac Toe")
+    print("\nVítej ve hře Piškvorky (Tic Tac Toe)")
     print("=" * 44)
-    print("GAME RULES:")
-    print("Each player can place one mark (or stone)")
-    print("per turn on the 3x3 grid. The WINNER is")
-    print("who succeeds in placing three of their")
-    print("marks in a:")
-    print("* horizontal,")
-    print("* vertical or")
-    print("* diagonal row")
+    print("PRAVIDLA HRY:")
+    print("Každý hráč může umístit jednu značku")
+    print("(O nebo X) na hrací plochu 3x3.")
+    print("VÍTĚZ je ten, kdo jako první umístí")
+    print("tři své značky do:")
+    print("* horizontální řady,")
+    print("* vertikální řady nebo")
+    print("* diagonální řady")
     print("=" * 44)
-    print("Let's start the game")
+    print("Začínáme hru")
     print("-" * 44)
 
 
@@ -97,7 +97,7 @@ def hraj_tic_tac_toe():
     
     while True:
         print("=" * 44)
-        vstup = input(f"Player {aktualni_hrac.lower()} | Please enter your move number: ").strip()
+        vstup = input(f"Hráč {aktualni_hrac} | Zadej číslo pole (1-9): ").strip()
         print("=" * 44)
         
         # Validace tahu
@@ -116,14 +116,14 @@ def hraj_tic_tac_toe():
         # Kontrola výhry
         if zkontroluj_vitezstvi(plocha, aktualni_hrac):
             print("=" * 44)
-            print(f"Congratulations, the player {aktualni_hrac.lower()} WON!")
+            print(f"Gratulujeme, hráč {aktualni_hrac} VYHRÁL!")
             print("=" * 44)
             break
         
         # Kontrola remízy
         if je_plocha_plna(plocha):
             print("=" * 44)
-            print("It's a draw! The game is tied!")
+            print("Remíza! Hra skončila nerozhodně!")
             print("=" * 44)
             break
         

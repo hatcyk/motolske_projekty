@@ -22,8 +22,8 @@ def main():
     # Vytvoření Flet aplikace
     def gui_app(page: ft.Page):
         page.title = "Domácí úkoly z Pythonu"
-        page.window.width = 400
-        page.window.height = 300
+        page.window.width = 650
+        page.window.height = 250
         page.window.resizable = False
         page.padding = 20
         
@@ -43,7 +43,6 @@ def main():
                 os._exit(0)
         
         # Nastavení event handleru pro zavření okna
-        page.window.prevent_close = True
         page.window.on_event = window_event_handler
         
         def spustit_cli(e):
@@ -72,10 +71,10 @@ def main():
             
             # Spustí nový terminál s CLI podle OS a uloží proces
             if sys.platform == "darwin":  # macOS
-                # AppleScript pro spuštění nového okna Terminálu
+                # Spustí Python přímo v novém okně Terminálu (bez prázdného okna)
                 terminal_process = subprocess.Popen([
                     'osascript', '-e',
-                    f'tell app "Terminal" to do script "cd \\"{project_dir}\\" && python3 \\"{cli_script}\\""'
+                    f'tell application "Terminal" to do script "cd \\"{project_dir}\\" && python3 \\"{cli_script}\\" && exit"'
                 ])
             elif sys.platform == "win32":  # Windows
                 terminal_process = subprocess.Popen(['start', 'cmd', '/k', 'python', cli_script], shell=True)
@@ -183,8 +182,8 @@ def main():
         btn_cli = ft.Button(
             "Rozhraní CLI",
             on_click=spustit_cli,
-            width=200,
-            height=50,
+            width=180,
+            height=60,
             icon=ft.Icons.TERMINAL,
             style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
         )
@@ -192,8 +191,8 @@ def main():
         btn_gui = ft.Button(
             "Rozhraní GUI",
             on_click=spustit_gui,
-            width=200,
-            height=50,
+            width=180,
+            height=60,
             icon=ft.Icons.WINDOW,
             style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
         )
@@ -201,8 +200,8 @@ def main():
         btn_konec = ft.Button(
             "Konec",
             on_click=ukoncit,
-            width=200,
-            height=50,
+            width=180,
+            height=60,
             icon=ft.Icons.EXIT_TO_APP,
             color=ft.Colors.RED_400,
             style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
@@ -214,9 +213,9 @@ def main():
             nadpis,
             autor,
             ft.Container(height=20),
-            ft.Column(
+            ft.Row(
                 [btn_cli, btn_gui, btn_konec],
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                alignment=ft.MainAxisAlignment.CENTER,
                 spacing=10
             )
         )

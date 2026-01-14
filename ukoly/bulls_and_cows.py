@@ -63,8 +63,20 @@ def vyhodnot_tip(tajne_cislo, tip):
 
 def formatuj_vysledek(bulls, cows):
     """Naformátuje výsledek s gramaticky správným tvarem."""
-    bull_text = "bull" if bulls == 1 else "bulls"
-    cow_text = "cow" if cows == 1 else "cows"
+    # České gramatické tvary
+    if bulls == 1:
+        bull_text = "býk"
+    elif 2 <= bulls <= 4:
+        bull_text = "býci"
+    else:
+        bull_text = "býků"
+    
+    if cows == 1:
+        cow_text = "kráva"
+    elif 2 <= cows <= 4:
+        cow_text = "krávy"
+    else:
+        cow_text = "krav"
     
     return f"{bulls} {bull_text}, {cows} {cow_text}"
 
@@ -72,21 +84,21 @@ def formatuj_vysledek(bulls, cows):
 def hodnoceni_vysledku(pokusy):
     """Vrátí hodnocení na základě počtu pokusů."""
     if pokusy <= 4:
-        return "amazing"
+        return "úžasné"
     elif pokusy <= 7:
-        return "average"
+        return "průměrné"
     elif pokusy <= 10:
-        return "not so good"
+        return "mohlo být lepší"
     else:
-        return "you could do better"
+        return "zkus to příště lépe"
 
 
 def hraj_bulls_and_cows():
     """Hlavní herní smyčka."""
-    print("\nHi there!")
+    print("\nAhoj!")
     print("-" * 47)
-    print("I've generated a random 4 digit number for you.")
-    print("Let's play a bulls and cows game.")
+    print("Vygeneroval jsem náhodné 4-místné číslo.")
+    print("Pojďme si zahrát Bulls & Cows.")
     print("-" * 47)
     
     tajne_cislo = generuj_tajne_cislo()
@@ -94,7 +106,7 @@ def hraj_bulls_and_cows():
     start_cas = time.time()
     
     while True:
-        print("Enter a number:")
+        print("Zadej číslo:")
         print("-" * 47)
         tip = input(">>> ").strip()
         
@@ -114,11 +126,11 @@ def hraj_bulls_and_cows():
             konec_cas = time.time()
             cas_hry = int(konec_cas - start_cas)
             
-            print("Correct, you've guessed the right number")
-            print(f"in {pokusy} guesses!")
+            print("Správně! Uhodl jsi číslo")
+            print(f"na {pokusy} pokusů!")
             print("-" * 47)
-            print(f"That's {hodnoceni_vysledku(pokusy)}!")
-            print(f"Time: {cas_hry} seconds")
+            print(f"To je {hodnoceni_vysledku(pokusy)}!")
+            print(f"Čas: {cas_hry} sekund")
             print("-" * 47)
             break
         else:
