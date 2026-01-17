@@ -134,5 +134,4 @@ jobs:
             2. Rozbal: `tar -xzf motolske_projekty-linux.tar.gz`
             3. Nainstaluj závislost: `sudo apt install libmpv2`
             4. Spusť: `./motolske_projekty`
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
