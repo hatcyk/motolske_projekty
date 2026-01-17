@@ -10,6 +10,10 @@ zadani.md
 changelog.md
 utils/game_stats.json
 
+# PyInstaller
+*.spec
+*.manifest
+
 # Distribution / packaging
 .Python
 build/
