@@ -72,19 +72,20 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         
         # Provedení tahu
         plocha[pozice] = aktualni_hrac
-        tlacitka[pozice].text = aktualni_hrac
-        tlacitka[pozice].style = ft.ButtonStyle(
-            color=ft.Colors.BLUE if aktualni_hrac == 'O' else ft.Colors.RED
-        )
+
+        # Aktualizace textu v tlačítku
+        tlacitka[pozice].value = aktualni_hrac
+        tlacitka[pozice].color = ft.Colors.BLUE if aktualni_hrac == 'O' else ft.Colors.RED
+        page.update()
         
         # Kontrola výhry
         vyhrál, vyherni_pozice = zkontroluj_vitezstvi(plocha, aktualni_hrac)
         if vyhrál:
-            # Zvýraznění výherní kombinace
+            # Zvýraznění výherní kombinace zelenou barvou textu
             for pos in vyherni_pozice:
-                tlacitka[pos].bgcolor = ft.Colors.GREEN_100
+                tlacitka[pos].color = ft.Colors.GREEN
             
-            stav_text.value = f"🎉 Gratulujeme, hráč {aktualni_hrac} VYHRÁL!"
+            stav_text.value = f"Gratulujeme, hráč {aktualni_hrac} VYHRÁL!"
             stav_text.color = ft.Colors.GREEN
             hra_aktivni = False
             page.update()
@@ -116,9 +117,8 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         
         # Reset všech tlačítek
         for pozice in range(1, 10):
-            tlacitka[pozice].text = ""
-            tlacitka[pozice].bgcolor = None
-            tlacitka[pozice].style = None
+            tlacitka[pozice].value = ""
+            tlacitka[pozice].color = None
         
         stav_text.value = "Hráč O - Tvůj tah!"
         stav_text.color = ft.Colors.BLUE_700
@@ -128,22 +128,21 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
     # Vytvoření 3x3 gridu tlačítek
     def vytvor_tlacitko(pozice):
         """Vytvoří tlačítko pro pozici."""
-        btn = ft.Container(
-            content=ft.TextButton(
-                text="",
-                on_click=lambda e: klik_na_pole(pozice),
-                style=ft.ButtonStyle(
-                    shape=ft.RoundedRectangleBorder(radius=5),
-                ),
-                width=80,
-                height=80,
-            ),
+        text_control = ft.Text("", size=32, weight=ft.FontWeight.BOLD)
+
+        btn = ft.ElevatedButton(
+            content=text_control,
+            on_click=lambda e: klik_na_pole(pozice),
             width=90,
             height=90,
-            alignment=ft.alignment.center
+            style=ft.ButtonStyle(
+                shape=ft.RoundedRectangleBorder(radius=5),
+                padding=ft.padding.all(0),
+            ),
         )
-        # Uložení reference na vnitřní TextButton
-        tlacitka[pozice] = btn.content
+
+        # Uložení reference
+        tlacitka[pozice] = text_control
         return btn
     
     # Vytvoření gridu
@@ -165,10 +164,17 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         ], alignment=ft.MainAxisAlignment.CENTER),
     ], spacing=5)
     
+    # Zvětšení okna pro lepší zobrazení
+    page.window.height = 700
+    page.update()
+
     # Hlavní layout
     page.add(
         ft.Container(height=10),
-        ft.Text("Piškvorky (Tic-tac-toe) ⭕❌", size=24, weight=ft.FontWeight.BOLD),
+        ft.Row([
+            ft.Icon(ft.Icons.GRID_3X3, size=32, color=ft.Colors.PURPLE),
+            ft.Text("Piškvorky (Tic-tac-toe)", size=24, weight=ft.FontWeight.BOLD),
+        ], spacing=10),
         ft.Container(height=10),
         stav_text,
         ft.Container(height=20),
@@ -183,7 +189,7 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         ], alignment=ft.MainAxisAlignment.CENTER),
         ft.Container(height=10),
         ft.Row([
-            ft.Button("🔄 Nová hra", on_click=nova_hra, width=150),
-            ft.Button("← Zpět", on_click=lambda e: zpet_callback(), width=150),
+            ft.Button("Nová hra", on_click=nova_hra, width=150, icon=ft.Icons.REFRESH),
+            ft.Button("Zpět", on_click=lambda e: zpet_callback(), width=150, icon=ft.Icons.ARROW_BACK),
         ], spacing=10, alignment=ft.MainAxisAlignment.CENTER)
     )

@@ -49,14 +49,46 @@ def vyhodnot_tip(tajne_cislo, tip):
     """Vyhodnotí tip a vrátí počet bulls a cows."""
     bulls = 0
     cows = 0
-    
+
     for i in range(4):
         if tip[i] == tajne_cislo[i]:
             bulls += 1
         elif tip[i] in tajne_cislo:
             cows += 1
-    
+
     return bulls, cows
+
+
+def vytvor_vizualni_feedback(tajne_cislo, tip):
+    """Vytvoří vizuální feedback pro každou číslici (jako Wordle)."""
+    feedback = []
+
+    for i in range(4):
+        if tip[i] == tajne_cislo[i]:
+            # Bull - zelená
+            barva = ft.Colors.GREEN
+            stav = "✓"
+        elif tip[i] in tajne_cislo:
+            # Cow - oranžová
+            barva = ft.Colors.ORANGE
+            stav = "○"
+        else:
+            # Špatně - šedá
+            barva = ft.Colors.GREY_700
+            stav = "✗"
+
+        feedback.append(
+            ft.Container(
+                content=ft.Text(tip[i], size=16, weight=ft.FontWeight.BOLD, color=ft.Colors.WHITE, text_align=ft.TextAlign.CENTER),
+                width=40,
+                height=40,
+                bgcolor=barva,
+                border_radius=5,
+                alignment=ft.alignment.Alignment(0, 0),
+            )
+        )
+
+    return feedback
 
 
 def formatuj_vysledek(bulls, cows):
@@ -177,17 +209,21 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         # Vyhodnocení
         bulls, cows = vyhodnot_tip(tajne_cislo, tip)
         vysledek = formatuj_vysledek(bulls, cows)
-        
+
+        # Vytvoření vizuálního feedbacku
+        vizualni_feedback = vytvor_vizualni_feedback(tajne_cislo, tip)
+
         # Přidání do historie
         historie_item = ft.Container(
             content=ft.Row([
                 ft.Text(f"#{pokusy}", size=14, weight=ft.FontWeight.BOLD, width=40),
-                ft.Text(tip, size=16, weight=ft.FontWeight.BOLD, width=80),
-                ft.Text("→", size=14, width=30),
+                ft.Row(vizualni_feedback, spacing=5),
+                ft.Container(width=10),
                 ft.Text(vysledek, size=14, color=ft.Colors.GREEN if bulls == 4 else ft.Colors.ORANGE),
             ]),
-            bgcolor=ft.Colors.GREEN_50 if bulls == 4 else ft.Colors.GREY_100,
-            border_radius=5,
+            bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.GREEN if bulls == 4 else ft.Colors.BLUE),
+            border=ft.border.all(1, ft.Colors.GREEN_700 if bulls == 4 else ft.Colors.GREY_700),
+            border_radius=8,
             padding=10
         )
         historie_list.controls.insert(0, historie_item)
@@ -217,10 +253,17 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
     # Event handler pro Enter v TextField
     tip_input.on_submit = over_tip
     
+    # Změna velikosti okna pro lepší zobrazení
+    page.window.height = 750
+    page.update()
+
     # Hlavní layout
     page.add(
         ft.Container(height=10),
-        ft.Text("Bulls & Cows 🐮", size=24, weight=ft.FontWeight.BOLD),
+        ft.Row([
+            ft.Icon(ft.Icons.LIGHTBULB, size=32, color=ft.Colors.AMBER),
+            ft.Text("Bulls & Cows", size=24, weight=ft.FontWeight.BOLD),
+        ], spacing=10),
         ft.Container(height=10),
         stav_text,
         ft.Container(height=10),
@@ -228,20 +271,21 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         ft.Container(height=10),
         ft.Row([
             tip_input,
-            ft.Button("Zkontrolovat", on_click=over_tip, width=150),
+            ft.Button("Zkontrolovat", on_click=over_tip, width=150, icon=ft.Icons.CHECK_CIRCLE),
         ], spacing=10),
         chyba_text,
         ft.Container(height=10),
         ft.Text("Historie pokusů:", size=16, weight=ft.FontWeight.BOLD),
+        ft.Container(height=5),
         ft.Container(
             content=historie_list,
-            border=ft.border.all(1, ft.Colors.GREY_300),
-            border_radius=5,
-            height=200
+            border=ft.border.all(2, ft.Colors.GREY_700),
+            border_radius=8,
+            height=220
         ),
-        ft.Container(height=10),
+        ft.Container(height=15),
         ft.Row([
-            ft.Button("🔄 Nová hra", on_click=nova_hra, width=150),
-            ft.Button("← Zpět", on_click=lambda e: zpet_callback(), width=150),
-        ], spacing=10)
+            ft.Button("Nová hra", on_click=nova_hra, width=150, icon=ft.Icons.REFRESH),
+            ft.Button("Zpět", on_click=lambda e: zpet_callback(), width=150, icon=ft.Icons.ARROW_BACK),
+        ], spacing=10, alignment=ft.MainAxisAlignment.CENTER)
     )

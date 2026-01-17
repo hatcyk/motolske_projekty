@@ -1,7 +1,7 @@
 #!/bin/bash
-# Build script pro macOS (.app)
+# Build script pro Linux
 
-echo "🔨 Buildování aplikace pro macOS..."
+echo "🔨 Buildování aplikace pro Linux..."
 echo ""
 
 # Kontrola PyInstaller
@@ -16,11 +16,11 @@ echo "🧹 Čištění starých buildů..."
 rm -rf build dist *.spec
 
 # Build s PyInstaller
-echo "📦 Vytváření .app souboru..."
+echo "📦 Vytváření binárky..."
 pyinstaller \
     --name="Domácí úkoly" \
     --windowed \
-    --onedir \
+    --onefile \
     --add-data="ukoly:ukoly" \
     --add-data="gui:gui" \
     --add-data="tests:tests" \
@@ -32,13 +32,13 @@ pyinstaller \
     main.py
 
 # Kontrola úspěchu
-if [ -d "dist/Domácí úkoly.app" ]; then
+if [ -f "dist/Domácí úkoly" ]; then
     echo ""
     echo "✅ Build úspěšný!"
-    echo "📂 Aplikace: dist/Domácí úkoly.app"
+    echo "📂 Aplikace: dist/Domácí úkoly"
     echo ""
-    echo "💡 Pro spuštění: open \"dist/Domácí úkoly.app\""
-    echo "💡 Pro instalaci: přesuň do /Applications"
+    echo "💡 Pro spuštění: ./dist/Domácí\ úkoly"
+    echo "💡 Nebo: chmod +x dist/Domácí\ úkoly && ./dist/Domácí\ úkoly"
 else
     echo ""
     echo "❌ Build selhal!"

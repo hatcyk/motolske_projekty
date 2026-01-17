@@ -11,6 +11,10 @@ import sys
 import os
 import subprocess
 import flet as ft
+import tracemalloc
+
+# Spuštění tracemalloc pro sledování alokace paměti
+tracemalloc.start()
 
 # Potlač deprecated warnings z Flet (musí být před importem flet funkcí)
 import warnings
@@ -24,6 +28,7 @@ from gui import data
 from gui import kalkulacka
 from gui import bulls_cows
 from gui import tic_tac_toe
+from gui import automaticke_testy
 
 
 def main():
@@ -32,8 +37,8 @@ def main():
     # Vytvoření Flet aplikace
     def gui_app(page: ft.Page):
         page.title = "Domácí úkoly z Pythonu"
-        page.window.width = 650
-        page.window.height = 250
+        page.window.width = 700
+        page.window.height = 350
         page.window.resizable = False
         page.padding = 20
         
@@ -107,20 +112,40 @@ def main():
         
         def obnovit_menu():
             """Obnoví hlavní menu."""
+            page.window.width = 700
+            page.window.height = 350
             page.controls.clear()
             page.add(
                 ft.Container(height=10),
                 nadpis,
                 autor,
                 ft.Container(height=20),
-                ft.Column(
-                    [btn_cli, btn_gui, btn_konec],
-                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                ft.Row(
+                    [btn_cli, btn_gui],
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    spacing=10
+                ),
+                ft.Container(height=10),
+                ft.Row(
+                    [btn_testy, btn_konec],
+                    alignment=ft.MainAxisAlignment.CENTER,
                     spacing=10
                 )
             )
             page.update()
         
+        def spustit_testy(e):
+            """Spustí automatické testování."""
+            page.controls.clear()
+
+            # Zvětšení okna pro testy
+            page.window.width = 700
+            page.window.height = 600
+            page.update()
+
+            # Zobrazení testovacího rozhraní
+            automaticke_testy.zobraz_ukol(page, obnovit_menu)
+
         def spustit_gui(e):
             """Spustí GUI rozhraní."""
             page.controls.clear()
@@ -133,8 +158,8 @@ def main():
             def zpet_do_menu(e):
                 """Vrátí se zpět do hlavního menu."""
                 # Vrácení původní velikosti okna
-                page.window.width = 650
-                page.window.height = 250
+                page.window.width = 700
+                page.window.height = 350
                 page.controls.clear()
                 page.add(
                     ft.Container(height=10),
@@ -142,7 +167,13 @@ def main():
                     autor,
                     ft.Container(height=20),
                     ft.Row(
-                        [btn_cli, btn_gui, btn_konec],
+                        [btn_cli, btn_gui],
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        spacing=10
+                    ),
+                    ft.Container(height=10),
+                    ft.Row(
+                        [btn_testy, btn_konec],
                         alignment=ft.MainAxisAlignment.CENTER,
                         spacing=10
                     )
@@ -187,34 +218,34 @@ def main():
                         ft.Button("7. Tic-tac-toe", on_click=lambda e: spustit_ukol_gui(7), width=400),
                     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
                     ft.Container(height=10),
-                    ft.Button("← Zpět do hlavního menu", on_click=zpet_do_menu, width=200)
+                    ft.Button("← Zpět do hlavního menu", on_click=zpet_do_menu, width=250)
                 )
                 page.update()
             
             # Zobraz GUI menu
             zpet_do_gui_menu()
         
-        def ukoncit(e):
+        async def ukoncit(e):
             """Ukončí aplikaci - zavře okno."""
-            # Uživatel zavře okno ručně kliknutím na X
-            # Flet nemá synchronní způsob jak zavřít okno z event handleru
+            # Zobrazení loading obrazovky
             page.controls.clear()
             page.add(
-                ft.Container(height=50),
-                ft.Text("Zavírání aplikace...", size=20, text_align=ft.TextAlign.CENTER),
-                ft.Container(height=10),
-                ft.Text("Prosím zavři toto okno kliknutím na ×", size=14, text_align=ft.TextAlign.CENTER, color=ft.Colors.GREY),
+                ft.Container(height=100),
+                ft.Column([
+                    ft.ProgressRing(),
+                    ft.Container(height=20),
+                    ft.Text("Ukončuji aplikaci...", size=20, weight=ft.FontWeight.BOLD),
+                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
             )
             page.update()
-            # Automatické zavření po 1 sekundě pomocí threadu
-            import threading
-            import time
-            def auto_close():
-                time.sleep(1)
-                import os
-                os._exit(0)
-            threading.Thread(target=auto_close, daemon=True).start()
-        
+
+            # Krátké čekání pro zobrazení zprávy
+            import asyncio
+            await asyncio.sleep(0.5)
+
+            # Zavření aplikace
+            await page.window.destroy()
+
         # Nadpis
         nadpis = ft.Text(
             "Domácí úkoly z Pythonu",
@@ -240,7 +271,7 @@ def main():
             icon=ft.Icons.TERMINAL,
             style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
         )
-        
+
         btn_gui = ft.Button(
             "Rozhraní GUI",
             on_click=spustit_gui,
@@ -249,7 +280,16 @@ def main():
             icon=ft.Icons.WINDOW,
             style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
         )
-        
+
+        btn_testy = ft.Button(
+            "Automatické testování",
+            on_click=spustit_testy,
+            width=180,
+            height=60,
+            icon=ft.Icons.KEY,
+            style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8))
+        )
+
         btn_konec = ft.Button(
             "Konec",
             on_click=ukoncit,
@@ -267,7 +307,13 @@ def main():
             autor,
             ft.Container(height=20),
             ft.Row(
-                [btn_cli, btn_gui, btn_konec],
+                [btn_cli, btn_gui],
+                alignment=ft.MainAxisAlignment.CENTER,
+                spacing=10
+            ),
+            ft.Container(height=10),
+            ft.Row(
+                [btn_testy, btn_konec],
                 alignment=ft.MainAxisAlignment.CENTER,
                 spacing=10
             )
