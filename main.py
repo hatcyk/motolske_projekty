@@ -37,7 +37,7 @@ def main():
         page.title = "Domácí úkoly z Pythonu"
         page.window.width = 700
         page.window.height = 350
-        page.window.resizable = False
+        page.window.resizable = True
         page.padding = 20
         
         # Proměnná pro uložení PID terminálu
