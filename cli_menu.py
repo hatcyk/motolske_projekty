@@ -5,7 +5,14 @@
 CLI rozhraní pro domácí úkoly
 """
 
+import os
+import sys
 from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka, bulls_and_cows, tic_tac_toe
+
+
+def vycisti_terminal():
+    """Vyčistí terminál."""
+    os.system('cls' if sys.platform == 'win32' else 'clear')
 
 
 def vypis_header():
@@ -38,19 +45,40 @@ def hlavni_menu():
         volba = input("\nVyberte úkol (0-7): ").strip()
         
         if volba == "1":
+            vycisti_terminal()
             plocha_trojuhelniku.plocha_trojuhelniku()
+            input("\nStiskni Enter pro návrat do menu...")
+            vycisti_terminal()
         elif volba == "2":
+            vycisti_terminal()
             hadani_pismene_dne.hadani_pismene_dne()
+            input("\nStiskni Enter pro návrat do menu...")
+            vycisti_terminal()
         elif volba == "3":
+            vycisti_terminal()
             prace_se_sety.main()
+            input("\nStiskni Enter pro návrat do menu...")
+            vycisti_terminal()
         elif volba == "4":
+            vycisti_terminal()
             prace_s_daty.main()
+            input("\nStiskni Enter pro návrat do menu...")
+            vycisti_terminal()
         elif volba == "5":
+            vycisti_terminal()
             kalkulacka.main()
+            input("\nStiskni Enter pro návrat do menu...")
+            vycisti_terminal()
         elif volba == "6":
+            vycisti_terminal()
             bulls_and_cows.main()
+            input("\nStiskni Enter pro návrat do menu...")
+            vycisti_terminal()
         elif volba == "7":
+            vycisti_terminal()
             tic_tac_toe.main()
+            input("\nStiskni Enter pro návrat do menu...")
+            vycisti_terminal()
         elif volba == "0":
             print("\n" + "="*60)
             print("Děkuji za použití! Na shledanou! 👋")
@@ -58,9 +86,6 @@ def hlavni_menu():
             break
         else:
             print("\n✗ Neplatná volba! Zkus znovu.")
-        
-        if volba in ["1", "2"]:
-            input("\nStiskni Enter pro návrat do menu...")
 
 
 if __name__ == "__main__":
