@@ -25,11 +25,12 @@ pyinstaller ^
     --name="motolske_projekty" ^
     --windowed ^
     --onefile ^
+    --manifest="motolske_projekty.manifest" ^
     --add-data="ukoly;ukoly" ^
     --add-data="gui;gui" ^
-    --add-data="tests;tests" ^
     --add-data="cli_menu.py;." ^
     --collect-all=flet ^
+    --collect-all=flet_desktop ^
     --exclude-module=flet.testing ^
     --exclude-module=numpy ^
     --noconfirm ^
