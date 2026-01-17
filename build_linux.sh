@@ -25,7 +25,7 @@ rm -rf build dist *.spec
 # Build s PyInstaller
 echo "📦 Vytváření binárky..."
 pyinstaller \
-    --name="Domácí úkoly" \
+    --name="motolske_projekty" \
     --windowed \
     --onefile \
     --add-data="ukoly:ukoly" \
@@ -39,10 +39,10 @@ pyinstaller \
     main.py
 
 # Kontrola úspěchu
-if [ -f "dist/Domácí úkoly" ]; then
+if [ -f "dist/motolske_projekty" ]; then
     echo ""
     echo "✅ Build úspěšný!"
-    echo "📂 Aplikace: dist/Domácí úkoly"
+    echo "📂 Aplikace: dist/motolske_projekty"
     echo ""
     echo "💡 Pro spuštění: ./dist/Domácí\ úkoly"
     echo "💡 Nebo: chmod +x dist/Domácí\ úkoly && ./dist/Domácí\ úkoly"

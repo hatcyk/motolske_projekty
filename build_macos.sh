@@ -18,7 +18,7 @@ rm -rf build dist *.spec
 # Build s PyInstaller
 echo "📦 Vytváření .app souboru..."
 pyinstaller \
-    --name="Domácí úkoly" \
+    --name="motolske_projekty" \
     --windowed \
     --onedir \
     --add-data="ukoly:ukoly" \
@@ -32,12 +32,12 @@ pyinstaller \
     main.py
 
 # Kontrola úspěchu
-if [ -d "dist/Domácí úkoly.app" ]; then
+if [ -d "dist/motolske_projekty.app" ]; then
     echo ""
     echo "✅ Build úspěšný!"
-    echo "📂 Aplikace: dist/Domácí úkoly.app"
+    echo "📂 Aplikace: dist/motolske_projekty.app"
     echo ""
-    echo "💡 Pro spuštění: open \"dist/Domácí úkoly.app\""
+    echo "💡 Pro spuštění: open \"dist/motolske_projekty.app\""
     echo "💡 Pro instalaci: přesuň do /Applications"
 else
     echo ""

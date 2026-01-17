@@ -93,31 +93,6 @@ Po výběru CLI se zobrazí interaktivní menu s výběrem úkolů (1-7).
 - Flet (pro GUI rozhraní) - `pip install flet`
 - PyInstaller (pro vytvoření standalone aplikace) - `pip install pyinstaller`
 
-## 📦 Vytvoření standalone aplikace
-
-Pro vytvoření aplikace bez potřeby Pythonu viz [BUILD.md](BUILD.md).
-
-**Rychlý start:**
-- **macOS**: `./build_macos.sh` → vytvoří `Domácí úkoly.app`
-- **Windows**: `build_windows.bat` → vytvoří `Domácí úkoly.exe`
-
-Výsledná aplikace:
-- ✅ Spustí se bez konzole
-- ✅ Obsahuje všechny závislosti
-- ✅ Nereaguje na Python instalaci
-
-## 📚 Dokumentace
-
-**📖 [INDEX.md](INDEX.md) - Úplný přehled všech dokumentů**
-
-### Rychlé odkazy:
-- **[QUICKSTART.md](QUICKSTART.md)** - Rychlý průvodce pro začátečníky
-- **[BUILD.md](BUILD.md)** - Detailní build instrukce
-- **[HOW_IT_WORKS.md](HOW_IT_WORKS.md)** - Jak projekt funguje (E2E)
-- **[CHANGELOG.md](CHANGELOG.md)** - Historie změn
-- **[TESTING.md](TESTING.md)** - Testing checklist
-- **[SUMMARY.md](SUMMARY.md)** - Kompletní přehled modularizace
-
 ## 🎮 Implementované hry
 
 ### Bulls & Cows GUI
