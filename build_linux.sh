@@ -11,6 +11,13 @@ if ! command -v pyinstaller &> /dev/null; then
     exit 1
 fi
 
+# Kontrola libmpv (potřebné pro Flet)
+if ! ldconfig -p | grep -q libmpv; then
+    echo "⚠️  Varování: libmpv není nainstalována!"
+    echo "Pro běh aplikace nainstaluj: sudo apt install libmpv2"
+    echo ""
+fi
+
 # Vyčištění starých buildů
 echo "🧹 Čištění starých buildů..."
 rm -rf build dist *.spec
