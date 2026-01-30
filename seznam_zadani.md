@@ -142,6 +142,36 @@ Congratulations, player o WON!
 ### 4. Kontrola sudosti/lichosti
 - Vyhodnoť, zda je číslo sudé nebo liché
 
+### 5. Házení kostkou (Simulace hodu kostkou)
+
+Pro tuto úlohu budeš potřebovat nahrát knihovnu `random`. Tvým úkolem bude simulovat hod kostkou.
+
+Program musí obsahovat:
+
+1. Naimportuj knihovnu `random`
+2. vytvoř proměnnou `min_hodnota` a ulož do ní `int 1`
+3. vytvoř proměnnou `max_hodnota` a ulož do ní `int 6`
+4. vytvoř řízenou nekonečnou smyčku
+5. nejprve vypíš: `"Házím kostkou.."`
+6. vytvoř proměnnou `kostka_hodnota`, které bude náhodně přiřazeno `int` od `min_hodnota` do `max_hodnota`
+7. následně doplň oznámení: `"Na kostce je: <hodnota>"`
+8. pokud `kostka_hodnota` bude obsahovat hodnotu 6, hod se provede znovu
+9. pokud padne jiné číslo, než 6 program se ukončí
+
+**Ukázka možných běhů programu:**
+
+```
+Házím kostkou..
+Na kostce je: 2
+```
+
+```
+Házím kostkou..
+Na kostce je: 6
+Házím kostkou..
+Na kostce je: 5
+```
+
 ---
 
 ## Úkoly se slovníky a kolekcemi

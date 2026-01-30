@@ -30,6 +30,7 @@ Repositář obsahuje domácí úkoly z předmětu Programování (Python). Jedno
 5. **Úkol 5** - Kalkulačka a interaktivní programy
 6. **Bulls & Cows** - Hra na hádání čtyřciferného čísla
 7. **Tic-tac-toe** - Piškvorky pro dva hráče
+8. **Házení kostkou** - Simulace hodu kostkou s řízenou smyčkou
 
 ### Spuštění
 
@@ -45,10 +46,11 @@ python3 main.py
 
 Program otevře GUI okno s výběrem rozhraní (bez konzole na pozadí):
 - **Rozhraní CLI** - zavře GUI a otevře nový terminál s textovým menu
-- **Rozhraní GUI** - zobrazí grafické rozhraní s 7 úkoly
-  - ✅ Úkol 1, 2, 5 - plně funkční GUI
+- **Rozhraní GUI** - zobrazí grafické rozhraní s 8 úkoly
+  - ✅ Úkol 1, 2, 5, 8 - plně funkční GUI
   - 🎮 **Bulls & Cows** - kompletní GUI s historií a časem
   - 🎮 **Tic-tac-toe** - interaktivní 3x3 grid s detekcí výhry
+  - 🎲 **Házení kostkou** - animovaná simulace s historií sérií
   - 📝 Úkol 3, 4 - dostupné pouze v CLI (GUI připravováno)
 - **Konec** - ukončí aplikaci
 
@@ -57,7 +59,7 @@ Program otevře GUI okno s výběrem rozhraní (bez konzole na pozadí):
 python3 cli_menu.py
 ```
 
-Po výběru CLI se zobrazí interaktivní menu s výběrem úkolů (1-7).
+Po výběru CLI se zobrazí interaktivní menu s výběrem úkolů (1-8).
 
 ### Struktura projektu
 
@@ -72,7 +74,8 @@ Po výběru CLI se zobrazí interaktivní menu s výběrem úkolů (1-7).
 │   ├── data.py                # GUI pro data (placeholder)
 │   ├── kalkulacka.py          # GUI pro kalkulačku
 │   ├── bulls_cows.py          # GUI pro Bulls & Cows hru 🎮
-│   └── tic_tac_toe.py         # GUI pro Tic-tac-toe hru 🎮
+│   ├── tic_tac_toe.py         # GUI pro Tic-tac-toe hru 🎮
+│   └── hazeni_kostkou.py      # GUI pro házení kostkou 🎲
 ├── ukoly/                      # Balíček s jednotlivými úkoly (CLI)
 │   ├── __init__.py
 │   ├── plocha_trojuhelniku.py # Výpočet plochy trojúhelníku
@@ -81,7 +84,8 @@ Po výběru CLI se zobrazí interaktivní menu s výběrem úkolů (1-7).
 │   ├── prace_s_daty.py        # Analýza dat
 │   ├── kalkulacka.py          # Kalkulačka a interaktivní programy
 │   ├── bulls_and_cows.py      # Bulls & Cows hra
-│   └── tic_tac_toe.py         # Tic-tac-toe piškvorky
+│   ├── tic_tac_toe.py         # Tic-tac-toe piškvorky
+│   └── hazeni_kostkou.py      # Házení kostkou - simulace
 ├── requirements.txt
 ├── README.md
 └── LICENSE

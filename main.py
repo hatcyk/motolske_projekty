@@ -29,6 +29,7 @@ from gui import kalkulacka
 from gui import bulls_cows
 from gui import tic_tac_toe
 from gui import automaticke_testy
+from gui import hazeni_kostkou
 
 
 def main():
@@ -198,7 +199,9 @@ def main():
                     bulls_cows.zobraz_ukol(page, zpet_do_gui_menu)
                 elif ukol_cislo == 7:
                     tic_tac_toe.zobraz_ukol(page, zpet_do_gui_menu)
-                
+                elif ukol_cislo == 8:
+                    hazeni_kostkou.zobraz_ukol(page, zpet_do_gui_menu)
+
                 page.update()
             
             def zpet_do_gui_menu():
@@ -216,6 +219,7 @@ def main():
                         ft.Button("5. Kalkulačka", on_click=lambda e: spustit_ukol_gui(5), width=400),
                         ft.Button("6. Bulls & Cows", on_click=lambda e: spustit_ukol_gui(6), width=400),
                         ft.Button("7. Tic-tac-toe", on_click=lambda e: spustit_ukol_gui(7), width=400),
+                        ft.Button("8. Házení kostkou", on_click=lambda e: spustit_ukol_gui(8), width=400),
                     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
                     ft.Container(height=10),
                     ft.Button("← Zpět do hlavního menu", on_click=zpet_do_menu, width=250)

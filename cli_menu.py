@@ -5,7 +5,7 @@
 
 import os
 import sys
-from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka, bulls_and_cows, tic_tac_toe
+from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka, bulls_and_cows, tic_tac_toe, hazeni_kostkou
 
 
 def vycisti_terminal():
@@ -36,11 +36,12 @@ def hlavni_menu():
         print("5. Kalkulačka a interaktivní programy")
         print("6. Bulls & Cows - hádání čísla")
         print("7. Tic-tac-toe - piškvorky")
+        print("8. Házení kostkou - simulace hodu")
         print("-"*60)
         print("0. Konec")
         print("="*60)
-        
-        volba = input("\nVyberte úkol (0-7): ").strip()
+
+        volba = input("\nVyberte úkol (0-8): ").strip()
         
         if volba == "1":
             vycisti_terminal()
@@ -75,6 +76,11 @@ def hlavni_menu():
         elif volba == "7":
             vycisti_terminal()
             tic_tac_toe.main()
+            input("\nStiskni Enter pro návrat do menu...")
+            vycisti_terminal()
+        elif volba == "8":
+            vycisti_terminal()
+            hazeni_kostkou.hazeni_kostkou()
             input("\nStiskni Enter pro návrat do menu...")
             vycisti_terminal()
         elif volba == "0":
