@@ -16,19 +16,59 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         page: Flet Page objekt
         zpet_callback: Funkce pro návrat zpět
     """
+    # Nastavení okna a zabránění scrollování
+    page.window.width = 750
+    page.window.height = 720
+    page.scroll = None
+    page.padding = 20
+    page.update()
+
     # Historie hodů
     historie = []
 
     # UI elementy
-    vysledek_text = ft.Text("", size=20, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER)
-    kostka_text = ft.Text("🎲", size=80, text_align=ft.TextAlign.CENTER)
-    historie_list = ft.Column([], scroll=ft.ScrollMode.AUTO, height=200)
-    pocet_hodu_text = ft.Text("Počet hodů: 0", size=14, color=ft.Colors.GREY_700)
+    vysledek_text = ft.Text("", size=18, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER)
+    kostka_icon = ft.Icon(ft.Icons.CASINO, size=80, color=ft.Colors.WHITE)
+    kostka_hodnota_text = ft.Text("", size=48, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER)
+
+    # Historie s viditelným scrollbarem a borderem - roztažená na celou šířku
+    historie_list = ft.Column([], scroll=ft.ScrollMode.ADAPTIVE, spacing=5)
+    historie_container = ft.Container(
+        content=historie_list,
+        height=235,
+        width=710,  # Šířka okna (750) - padding (20*2)
+        border=ft.border.all(1, ft.Colors.GREY_700),
+        border_radius=8,
+        padding=10,
+        bgcolor=ft.Colors.with_opacity(0.02, ft.Colors.WHITE)
+    )
+
+    pocet_hodu_text = ft.Text("Počet sérií: 0", size=13, color=ft.Colors.GREY_600)
 
     btn_hazet = ft.Button(
-        "🎲 Hodit kostkou",
+        "Hodit kostkou",
+        icon=ft.Icons.CASINO,
         on_click=lambda e: asyncio.create_task(hazej_kostkou()),
-        width=200,
+        width=180,
+        height=50,
+        disabled=False
+    )
+
+    btn_vymazat = ft.Button(
+        "Vymazat",
+        icon=ft.Icons.DELETE_OUTLINE,
+        on_click=lambda e: vymazat_historii(e),
+        width=130,
+        height=50,
+        color=ft.Colors.RED_400,
+        disabled=False
+    )
+
+    btn_zpet = ft.Button(
+        "Zpět",
+        icon=ft.Icons.ARROW_BACK,
+        on_click=lambda e: zpet_callback(),
+        width=130,
         height=50,
         disabled=False
     )
@@ -44,7 +84,8 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         # Vyčistí předchozí výsledek
         vysledek_text.value = "Házím kostkou.."
         vysledek_text.color = ft.Colors.BLUE
-        kostka_text.value = "🎲"
+        kostka_icon.color = ft.Colors.BLUE_400
+        kostka_hodnota_text.value = ""
         page.update()
 
         min_hodnota = 1
@@ -52,19 +93,23 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         hody_serie = []
 
         while True:
-            # Animace házení (3 rychlé změny)
-            for _ in range(3):
-                kostka_text.value = f"🎲 {random.randint(1, 6)}"
+            # Animace házení (5 rychlých změn)
+            for _ in range(5):
+                random_num = random.randint(1, 6)
+                kostka_hodnota_text.value = str(random_num)
+                kostka_icon.color = ft.Colors.BLUE_400
                 page.update()
                 await asyncio.sleep(0.1)
 
             # Finální hod
             kostka_hodnota = random.randint(min_hodnota, max_hodnota)
-            kostka_text.value = f"🎲 {kostka_hodnota}"
+            kostka_hodnota_text.value = str(kostka_hodnota)
 
-            # Emoji podle hodnoty
-            emoji_kostka = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"][kostka_hodnota - 1]
-            kostka_text.value = f"{emoji_kostka} {kostka_hodnota}"
+            # Barva ikony podle hodnoty
+            if kostka_hodnota == 6:
+                kostka_icon.color = ft.Colors.ORANGE
+            else:
+                kostka_icon.color = ft.Colors.GREEN
 
             hody_serie.append(kostka_hodnota)
 
@@ -89,12 +134,39 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
 
         # Zobrazení série v historii
         serie_text = " → ".join(str(h) for h in hody_serie)
+        pocet_hodu = len(hody_serie)
+
+        # Barva podle výsledku
+        if kostka_hodnota == 1:
+            result_color = ft.Colors.GREEN_400
+        elif kostka_hodnota <= 3:
+            result_color = ft.Colors.LIGHT_BLUE_400
+        else:
+            result_color = ft.Colors.ORANGE_400
+
         historie_list.controls.insert(0,
             ft.Container(
-                content=ft.Text(f"Serie #{len(historie)}: {serie_text}", size=12),
-                padding=5,
-                bgcolor=ft.Colors.GREY_900 if len(historie) % 2 == 0 else ft.Colors.GREY_800,
-                border_radius=5
+                content=ft.Row([
+                    ft.Icon(ft.Icons.CASINO, size=18, color=result_color),
+                    ft.Text(
+                        f"#{len(historie)}",
+                        size=12,
+                        weight=ft.FontWeight.BOLD,
+                        color=ft.Colors.GREY_500,
+                        width=35
+                    ),
+                    ft.Text(serie_text, size=13, weight=ft.FontWeight.W_500),
+                    ft.Container(expand=True),
+                    ft.Text(
+                        f"{pocet_hodu} {'hod' if pocet_hodu == 1 else 'hody' if pocet_hodu < 5 else 'hodů'}",
+                        size=11,
+                        color=ft.Colors.GREY_600
+                    ),
+                ], spacing=8),
+                padding=12,
+                bgcolor=ft.Colors.with_opacity(0.4, ft.Colors.GREY_900) if len(historie) % 2 == 0 else ft.Colors.with_opacity(0.2, ft.Colors.GREY_900),
+                border_radius=8,
+                border=ft.border.all(1, ft.Colors.with_opacity(0.1, result_color))
             )
         )
 
@@ -109,29 +181,76 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         historie_list.controls.clear()
         pocet_hodu_text.value = "Počet sérií: 0"
         vysledek_text.value = ""
-        kostka_text.value = "🎲"
+        kostka_hodnota_text.value = ""
+        kostka_icon.color = ft.Colors.WHITE
         page.update()
 
-    page.add(
+    # Vytvoření hlavního sloupce s plnou šířkou
+    main_column = ft.Column([
         ft.Container(height=10),
-        ft.Text("🎲 Házení kostkou", size=24, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
-        ft.Container(height=10),
-        ft.Text("Program hází dokud nepadne jiné číslo než 6", size=12, color=ft.Colors.GREY_600, text_align=ft.TextAlign.CENTER),
-        ft.Container(height=20),
-        kostka_text,
-        ft.Container(height=10),
-        vysledek_text,
-        ft.Container(height=20),
-        btn_hazet,
-        ft.Container(height=10),
+        # Hlavička - vycentrovaná
         ft.Row([
-            pocet_hodu_text,
-            ft.Button("🗑 Vymazat historii", on_click=vymazat_historii, height=35)
-        ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-        ft.Container(height=10),
-        ft.Text("📊 Historie sérií:", size=14, weight=ft.FontWeight.BOLD),
+            ft.Icon(ft.Icons.CASINO, size=32, color=ft.Colors.BLUE_400),
+            ft.Text("Házení kostkou", size=26, weight=ft.FontWeight.BOLD),
+        ], alignment=ft.MainAxisAlignment.CENTER, spacing=10),
+
         ft.Container(height=5),
-        historie_list,
-        ft.Container(height=20),
-        ft.Button("← Zpět", on_click=lambda e: zpet_callback(), width=200)
-    )
+        # Popisek - vycentrovaný
+        ft.Row([
+            ft.Text(
+                "Program hází dokud nepadne jiné číslo než 6",
+                size=12,
+                color=ft.Colors.GREY_600,
+            ),
+        ], alignment=ft.MainAxisAlignment.CENTER),
+
+        ft.Container(height=15),
+
+        # Zobrazení kostky - vycentrované
+        ft.Row([
+            ft.Container(
+                content=ft.Column([
+                    kostka_icon,
+                    kostka_hodnota_text,
+                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=5),
+                padding=15,
+                border_radius=12,
+                bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.WHITE),
+            ),
+        ], alignment=ft.MainAxisAlignment.CENTER),
+
+        ft.Container(height=8),
+        # Výsledek - vycentrovaný
+        ft.Row([
+            vysledek_text,
+        ], alignment=ft.MainAxisAlignment.CENTER),
+        ft.Container(height=15),
+
+        # Všechna 3 tlačítka vedle sebe
+        ft.Row([
+            btn_hazet,
+            btn_vymazat,
+            btn_zpet,
+        ], alignment=ft.MainAxisAlignment.CENTER, spacing=12),
+
+        ft.Container(height=15),
+        ft.Divider(height=1, color=ft.Colors.GREY_800),
+        ft.Container(height=10),
+
+        # Hlavička historie
+        ft.Row([
+            ft.Icon(ft.Icons.HISTORY, size=22, color=ft.Colors.BLUE_400),
+            ft.Text("Historie sérií", size=16, weight=ft.FontWeight.BOLD),
+            ft.Container(expand=True),
+            pocet_hodu_text,
+        ], spacing=8),
+
+        ft.Container(height=8),
+
+        # Historie v kontejneru se scrollováním
+        historie_container,
+
+        ft.Container(height=10),
+    ], expand=True, spacing=0)
+
+    page.add(main_column)
