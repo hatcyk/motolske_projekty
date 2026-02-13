@@ -72,7 +72,7 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         
         # Provedení tahu
         plocha[pozice] = aktualni_hrac
-        tlacitka[pozice].text = aktualni_hrac
+        tlacitka[pozice].content.value = aktualni_hrac
         tlacitka[pozice].style = ft.ButtonStyle(
             color=ft.Colors.BLUE if aktualni_hrac == 'O' else ft.Colors.RED
         )
@@ -116,7 +116,7 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         
         # Reset všech tlačítek
         for pozice in range(1, 10):
-            tlacitka[pozice].text = ""
+            tlacitka[pozice].content.value = ""
             tlacitka[pozice].bgcolor = None
             tlacitka[pozice].style = None
         
@@ -130,7 +130,7 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         """Vytvoří tlačítko pro pozici."""
         btn = ft.Container(
             content=ft.TextButton(
-                text="",
+                content=ft.Text("", size=40, weight=ft.FontWeight.BOLD),
                 on_click=lambda e: klik_na_pole(pozice),
                 style=ft.ButtonStyle(
                     shape=ft.RoundedRectangleBorder(radius=5),
@@ -140,7 +140,7 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
             ),
             width=90,
             height=90,
-            alignment=ft.alignment.center
+            alignment=ft.Alignment(0, 0)
         )
         # Uložení reference na vnitřní TextButton
         tlacitka[pozice] = btn.content

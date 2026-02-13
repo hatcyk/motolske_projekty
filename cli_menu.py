@@ -5,7 +5,7 @@
 CLI rozhraní pro domácí úkoly
 """
 
-from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka, bulls_and_cows, tic_tac_toe
+from ukoly import plocha_trojuhelniku, hadani_pismene_dne, prace_se_sety, prace_s_daty, kalkulacka, bulls_and_cows, tic_tac_toe, prumer_sekvence, overeni_os, extrakce_emailu
 
 
 def vypis_header():
@@ -31,11 +31,14 @@ def hlavni_menu():
         print("5. Kalkulačka a interaktivní programy")
         print("6. Bulls & Cows - hádání čísla")
         print("7. Tic-tac-toe - piškvorky")
+        print("8. Průměr sekvence čísel")
+        print("9. Ověření operačního systému")
+        print("10. Extrakce emailů z textu")
         print("-"*60)
         print("0. Konec")
         print("="*60)
-        
-        volba = input("\nVyberte úkol (0-7): ").strip()
+
+        volba = input("\nVyberte úkol (0-10): ").strip()
         
         if volba == "1":
             plocha_trojuhelniku.plocha_trojuhelniku()
@@ -51,6 +54,12 @@ def hlavni_menu():
             bulls_and_cows.main()
         elif volba == "7":
             tic_tac_toe.main()
+        elif volba == "8":
+            prumer_sekvence.main()
+        elif volba == "9":
+            overeni_os.main()
+        elif volba == "10":
+            extrakce_emailu.main()
         elif volba == "0":
             print("\n" + "="*60)
             print("Děkuji za použití! Na shledanou! 👋")
@@ -59,7 +68,7 @@ def hlavni_menu():
         else:
             print("\n✗ Neplatná volba! Zkus znovu.")
         
-        if volba in ["1", "2"]:
+        if volba in ["1", "2", "8", "9", "10"]:
             input("\nStiskni Enter pro návrat do menu...")
 
 

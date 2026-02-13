@@ -24,6 +24,9 @@ from gui import data
 from gui import kalkulacka
 from gui import bulls_cows
 from gui import tic_tac_toe
+from gui import prumer
+from gui import overeni_os
+from gui import extrakce_emailu
 
 
 def main():
@@ -34,7 +37,7 @@ def main():
         page.title = "Domácí úkoly z Pythonu"
         page.window.width = 650
         page.window.height = 250
-        page.window.resizable = False
+        page.window.resizable = True
         page.padding = 20
         
         # Proměnná pro uložení PID terminálu
@@ -127,7 +130,7 @@ def main():
             
             # Zvětšení okna pro GUI menu
             page.window.width = 700
-            page.window.height = 600
+            page.window.height = 720
             page.update()
             
             def zpet_do_menu(e):
@@ -167,6 +170,12 @@ def main():
                     bulls_cows.zobraz_ukol(page, zpet_do_gui_menu)
                 elif ukol_cislo == 7:
                     tic_tac_toe.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 8:
+                    prumer.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 9:
+                    overeni_os.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 10:
+                    extrakce_emailu.zobraz_ukol(page, zpet_do_gui_menu)
                 
                 page.update()
             
@@ -185,6 +194,9 @@ def main():
                         ft.Button("5. Kalkulačka", on_click=lambda e: spustit_ukol_gui(5), width=400),
                         ft.Button("6. Bulls & Cows", on_click=lambda e: spustit_ukol_gui(6), width=400),
                         ft.Button("7. Tic-tac-toe", on_click=lambda e: spustit_ukol_gui(7), width=400),
+                        ft.Button("8. Průměr sekvence čísel", on_click=lambda e: spustit_ukol_gui(8), width=400),
+                        ft.Button("9. Ověření operačního systému", on_click=lambda e: spustit_ukol_gui(9), width=400),
+                        ft.Button("10. Extrakce emailů z textu", on_click=lambda e: spustit_ukol_gui(10), width=400),
                     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
                     ft.Container(height=10),
                     ft.Button("← Zpět do hlavního menu", on_click=zpet_do_menu, width=200)
