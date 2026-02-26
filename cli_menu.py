@@ -13,7 +13,7 @@ def vypis_header():
     print("\n" + "="*60)
     print(" "*15 + "DOMÁCÍ ÚKOLY Z PYTHONU")
     print("="*60)
-    print("Autor: Štefan Barát")
+    print("Autor: Štefan Barát Prezident")
     print("Škola: Střední průmyslová škola dopravní")
     print("="*60 + "\n")
 
