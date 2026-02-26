@@ -15,6 +15,7 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
     """Zobrazí GUI pro filtrování slov ze souboru."""
 
     vychozi_cesta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "ukoly", "slova.txt")
+    soubor_existuje = os.path.exists(vychozi_cesta)
 
     input_min_delka = ft.TextField(label="Minimální délka slova", value="7", width=200)
     vysledek_text = ft.Text("", size=14, selectable=True)
@@ -112,7 +113,8 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         ft.Container(height=10),
         ft.Row([
             input_min_delka,
-            ft.Button("Načíst ze souboru slova.txt", on_click=nacti_soubor, icon=ft.Icons.FILE_OPEN),
+            ft.Button("Načíst ze souboru slova.txt", on_click=nacti_soubor, icon=ft.Icons.FILE_OPEN,
+                       visible=soubor_existuje),
         ], spacing=10),
         ft.Container(height=10),
         input_vlastni_slova,
@@ -121,7 +123,7 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         ft.Text("Výsledek:", size=16, weight=ft.FontWeight.BOLD),
         ft.Container(
             content=vysledek_text,
-            bgcolor=ft.Colors.GREY_900,
+            bgcolor=ft.Colors.GREY_200,
             padding=15,
             border_radius=8,
             width=600,

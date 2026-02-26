@@ -103,7 +103,7 @@ def zobraz_ukol(page: ft.Page, zpet_callback):
         ft.Container(height=10),
         ft.Container(
             content=ft.Column([vysledek_presnost, vysledek_kombinace, vysledek_string]),
-            bgcolor=ft.Colors.GREY_900,
+            bgcolor=ft.Colors.GREY_200,
             padding=15,
             border_radius=8,
         ),
