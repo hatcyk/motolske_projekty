@@ -1,0 +1,119 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Spustí se při pushu tagu jako v1.0.0
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build Windows executable
+        run: |
+          pyinstaller --name="motolske_projekty" --windowed --onefile --add-data="ukoly;ukoly" --add-data="gui;gui" --add-data="cli_menu.py;." --collect-all=flet --collect-all=flet_desktop --exclude-module=flet.testing --exclude-module=numpy --noconfirm main.py
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: motolske_projekty-windows
+          path: dist/motolske_projekty.exe
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build macOS app
+        run: |
+          pyinstaller --name="motolske_projekty" --windowed --onedir --add-data="ukoly:ukoly" --add-data="gui:gui" --add-data="cli_menu.py:." --collect-all=flet --exclude-module=flet.testing --exclude-module=numpy --noconfirm main.py
+
+      - name: Create zip
+        run: |
+          cd dist
+          zip -r ../motolske_projekty-macos.zip motolske_projekty.app
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: motolske_projekty-macos
+          path: motolske_projekty-macos.zip
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libmpv2
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build Linux binary
+        run: |
+          pyinstaller --name="motolske_projekty" --windowed --onefile --add-data="ukoly:ukoly" --add-data="gui:gui" --add-data="cli_menu.py:." --collect-all=flet --exclude-module=flet.testing --exclude-module=numpy --noconfirm main.py
+
+      - name: Create tar.gz
+        run: |
+          cd dist
+          tar -czf ../motolske_projekty-linux.tar.gz motolske_projekty
+
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: motolske_projekty-linux
+          path: motolske_projekty-linux.tar.gz
+
+  create-release:
+    needs: [build-windows, build-macos, build-linux]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create ${{ github.ref_name }} \
+            motolske_projekty-windows/motolske_projekty.exe \
+            motolske_projekty-macos/motolske_projekty-macos.zip \
+            motolske_projekty-linux/motolske_projekty-linux.tar.gz \
+            --title "Version ${{ github.ref_name }}" \
+            --generate-notes
