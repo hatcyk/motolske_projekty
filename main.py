@@ -27,6 +27,8 @@ from gui import tic_tac_toe
 from gui import prumer
 from gui import overeni_os
 from gui import extrakce_emailu
+from gui import formatovani
+from gui import dlouha_slova
 
 
 def main():
@@ -130,7 +132,7 @@ def main():
             
             # Zvětšení okna pro GUI menu
             page.window.width = 700
-            page.window.height = 720
+            page.window.height = 820
             page.update()
             
             def zpet_do_menu(e):
@@ -176,6 +178,10 @@ def main():
                     overeni_os.zobraz_ukol(page, zpet_do_gui_menu)
                 elif ukol_cislo == 10:
                     extrakce_emailu.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 11:
+                    formatovani.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 12:
+                    dlouha_slova.zobraz_ukol(page, zpet_do_gui_menu)
                 
                 page.update()
             
@@ -197,6 +203,8 @@ def main():
                         ft.Button("8. Průměr sekvence čísel", on_click=lambda e: spustit_ukol_gui(8), width=400),
                         ft.Button("9. Ověření operačního systému", on_click=lambda e: spustit_ukol_gui(9), width=400),
                         ft.Button("10. Extrakce emailů z textu", on_click=lambda e: spustit_ukol_gui(10), width=400),
+                        ft.Button("11. Formátování stringů a přesnost", on_click=lambda e: spustit_ukol_gui(11), width=400),
+                        ft.Button("12. Dlouhá slova ze souboru", on_click=lambda e: spustit_ukol_gui(12), width=400),
                     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
                     ft.Container(height=10),
                     ft.Button("← Zpět do hlavního menu", on_click=zpet_do_menu, width=200)
