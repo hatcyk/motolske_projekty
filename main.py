@@ -29,6 +29,8 @@ from gui import overeni_os
 from gui import extrakce_emailu
 from gui import formatovani
 from gui import dlouha_slova
+from gui import csv_soubor
+from gui import json_soubor
 
 
 def main():
@@ -182,6 +184,10 @@ def main():
                     formatovani.zobraz_ukol(page, zpet_do_gui_menu)
                 elif ukol_cislo == 12:
                     dlouha_slova.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 13:
+                    csv_soubor.zobraz_ukol(page, zpet_do_gui_menu)
+                elif ukol_cislo == 14:
+                    json_soubor.zobraz_ukol(page, zpet_do_gui_menu)
                 
                 page.update()
             
@@ -205,6 +211,8 @@ def main():
                         ft.Button("10. Extrakce emailů z textu", on_click=lambda e: spustit_ukol_gui(10), width=400),
                         ft.Button("11. Formátování stringů a přesnost", on_click=lambda e: spustit_ukol_gui(11), width=400),
                         ft.Button("12. Dlouhá slova ze souboru", on_click=lambda e: spustit_ukol_gui(12), width=400),
+                        ft.Button("13. Práce s CSV souborem", on_click=lambda e: spustit_ukol_gui(13), width=400),
+                        ft.Button("14. Práce s JSON souborem", on_click=lambda e: spustit_ukol_gui(14), width=400),
                     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
                     ft.Container(height=10),
                     ft.Button("← Zpět do hlavního menu", on_click=zpet_do_menu, width=200)

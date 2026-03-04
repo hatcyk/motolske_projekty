@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "jmeno": "Marek",
+        "barva": [
+            "červená",
+            "zelená"
+        ]
+    },
+    {
+        "id": 2,
+        "jmeno": "Bob",
+        "barva": [
+            "růžová",
+            "žlutá"
+        ]
+    }
+]
