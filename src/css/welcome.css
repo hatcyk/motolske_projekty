@@ -1,0 +1,83 @@
+.school-banner {
+  background: linear-gradient(135deg, #0f1826 0%, #0c1520 60%, #131c2e 100%);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--orange);
+  border-radius: 14px;
+  padding: 26px 30px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.school-banner::before {
+  content: 'SPŠD';
+  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+  font-size: 90px; font-weight: 900;
+  color: var(--orange); opacity: 0.06;
+  letter-spacing: -4px; pointer-events: none; user-select: none; line-height: 1;
+}
+.school-banner::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, var(--orange-border), transparent 60%);
+}
+.school-banner h1        { font-size: 22px; font-weight: 800; margin-bottom: 5px; letter-spacing: -0.3px; }
+.school-banner h1 span   { color: var(--orange); }
+.school-banner > p       { font-size: 12px; color: var(--text-muted); }
+.author-line             { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+.author-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 500; color: var(--text-muted);
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border-light);
+  border-radius: 20px; padding: 4px 11px; transition: all 0.15s;
+}
+.author-chip:hover { border-color: var(--orange-border); color: var(--orange); background: var(--orange-dim); }
+
+/* Task grid */
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+.task-card-welcome {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.3s ease both;
+}
+.task-card-welcome:nth-child(1)  { animation-delay: 0.02s; }
+.task-card-welcome:nth-child(2)  { animation-delay: 0.04s; }
+.task-card-welcome:nth-child(3)  { animation-delay: 0.06s; }
+.task-card-welcome:nth-child(4)  { animation-delay: 0.08s; }
+.task-card-welcome:nth-child(5)  { animation-delay: 0.10s; }
+.task-card-welcome:nth-child(6)  { animation-delay: 0.12s; }
+.task-card-welcome:nth-child(7)  { animation-delay: 0.14s; }
+.task-card-welcome:nth-child(8)  { animation-delay: 0.16s; }
+.task-card-welcome:nth-child(9)  { animation-delay: 0.18s; }
+.task-card-welcome:nth-child(10) { animation-delay: 0.20s; }
+.task-card-welcome:nth-child(11) { animation-delay: 0.22s; }
+.task-card-welcome:nth-child(12) { animation-delay: 0.24s; }
+.task-card-welcome:nth-child(13) { animation-delay: 0.26s; }
+.task-card-welcome:nth-child(14) { animation-delay: 0.28s; }
+
+.task-card-welcome::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, var(--orange), transparent);
+  opacity: 0; transition: opacity 0.2s;
+}
+.task-card-welcome:hover {
+  background: var(--bg-hover); border-color: var(--orange-border);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35), 0 0 0 1px var(--orange-border);
+}
+.task-card-welcome:hover::before { opacity: 1; }
+
+.tcw-num  { font-size: 10px; font-weight: 700; color: var(--text-dim); font-family: 'Courier New', monospace; margin-bottom: 10px; letter-spacing: 0.5px; }
+.tcw-icon { font-size: 24px; margin-bottom: 10px; display: block; line-height: 1; }
+.tcw-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+.tcw-cat  { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }

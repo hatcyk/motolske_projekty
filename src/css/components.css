@@ -1,0 +1,143 @@
+/* ── Cards ──────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 12px;
+}
+.card-accent { border-left: 3px solid var(--orange); }
+.card-title  {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 14px;
+}
+
+/* ── Forms ──────────────────────────────────────────────────── */
+.form-group   { margin-bottom: 14px; }
+.form-label   { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+.form-input {
+  width: 100%; padding: 9px 13px;
+  background: var(--bg); border: 1px solid var(--border-light);
+  border-radius: 8px; color: var(--text); font-size: 13.5px;
+  outline: none; transition: border-color 0.15s, box-shadow 0.15s; font-family: inherit;
+}
+.form-input:focus          { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-dim); }
+.form-input::placeholder   { color: var(--text-dim); }
+.form-input:disabled       { opacity: 0.35; cursor: not-allowed; }
+select.form-input          { cursor: pointer; }
+
+.data-textarea {
+  width: 100%; padding: 10px 13px;
+  background: var(--bg); border: 1px solid var(--border-light);
+  border-radius: 8px; color: var(--text); font-size: 13px;
+  line-height: 1.7; resize: vertical; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  min-height: 72px; font-family: inherit;
+}
+.data-textarea:focus        { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-dim); }
+.data-textarea::placeholder { color: var(--text-dim); }
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border: none; border-radius: 8px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s; font-family: inherit; letter-spacing: 0.1px;
+}
+.btn-primary {
+  background: var(--orange); color: #000;
+  box-shadow: 0 2px 12px rgba(249,115,22,0.35);
+}
+.btn-primary:hover   { background: var(--orange-hover); box-shadow: 0 4px 16px rgba(249,115,22,0.45); transform: translateY(-1px); }
+.btn-primary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-ghost {
+  background: transparent; color: var(--text-muted); border: 1px solid var(--border-light);
+}
+.btn-ghost:hover { background: var(--bg-hover); color: var(--text); border-color: var(--border-accent); }
+.btn-sm { padding: 6px 13px; font-size: 12px; }
+
+/* ── Result boxes ───────────────────────────────────────────── */
+.result         { margin-top: 12px; padding: 12px 14px; border-radius: 8px; font-size: 13px; line-height: 1.5; }
+.result-success { background: var(--success-dim); border: 1px solid rgba(74,222,128,0.2);  color: var(--success); }
+.result-error   { background: var(--error-dim);   border: 1px solid rgba(248,113,113,0.2); color: var(--error); }
+.result-info    { background: var(--blue-dim);     border: 1px solid rgba(96,165,250,0.2);  color: var(--blue); }
+
+/* ── Code output ────────────────────────────────────────────── */
+.code-output {
+  background: #040609; border: 1px solid var(--border); border-radius: 8px;
+  padding: 14px 16px; font-family: 'Courier New', monospace;
+  font-size: 12.5px; color: var(--text-muted);
+  white-space: pre-wrap; word-break: break-all; line-height: 1.75;
+}
+.code-output .hl  { color: var(--orange); }
+.code-output .ok  { color: var(--success); }
+.code-output .err { color: var(--error); }
+
+/* ── Tabs ───────────────────────────────────────────────────── */
+.tabs {
+  display: flex; gap: 3px; margin-bottom: 16px;
+  background: var(--bg); padding: 3px; border-radius: 9px; border: 1px solid var(--border);
+}
+.tab {
+  flex: 1; padding: 7px 10px; border: none; border-radius: 7px;
+  background: transparent; color: var(--text-muted); font-size: 12px;
+  font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.tab.active        { background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border-light); }
+.tab:hover:not(.active) { color: var(--text); }
+
+/* ── Table ──────────────────────────────────────────────────── */
+.data-table           { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th        { text-align: left; padding: 7px 12px; color: var(--text-muted); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--border); }
+.data-table td        { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td      { background: var(--bg-hover); }
+code { font-family: 'Courier New', monospace; font-size: 12px; color: var(--orange); }
+
+/* ── Layout helpers ─────────────────────────────────────────── */
+.row            { display: flex; gap: 12px; align-items: flex-end; }
+.row .form-group { flex: 1; }
+
+/* ── Operator buttons ───────────────────────────────────────── */
+.op-buttons { display: flex; gap: 6px; margin-bottom: 14px; }
+.op-btn {
+  width: 44px; height: 44px; border: 1px solid var(--border-light);
+  border-radius: 8px; background: var(--bg); color: var(--text);
+  font-size: 18px; cursor: pointer; transition: all 0.15s;
+  font-family: 'Courier New', monospace; font-weight: 700;
+}
+.op-btn:hover    { border-color: var(--orange-border); color: var(--orange); }
+.op-btn.selected { background: var(--orange-dim); border-color: var(--orange-border); color: var(--orange); }
+
+/* ── Chips ──────────────────────────────────────────────────── */
+.chip        { display: inline-block; padding: 3px 9px; border-radius: 5px; margin: 2px; font-family: 'Courier New', monospace; font-size: 12px; }
+.chip-orange { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange-border); }
+.chip-dim    { background: var(--bg-elevated); color: var(--text-muted); border: 1px solid var(--border); }
+
+/* ── Badges ─────────────────────────────────────────────────── */
+.badge      { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge-bull { background: var(--success-dim); color: var(--success); border: 1px solid rgba(74,222,128,0.2); }
+.badge-cow  { background: var(--warning-dim); color: var(--warning); border: 1px solid rgba(251,191,36,0.2); }
+
+.status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.sb-win       { background: var(--success-dim); color: var(--success); }
+.sb-info      { background: var(--blue-dim);    color: var(--blue); }
+.sb-orange    { background: var(--orange-dim);  color: var(--orange); }
+
+/* ── Stats ──────────────────────────────────────────────────── */
+.stats-row  { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 12px; }
+.stat-card  { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; text-align: center; }
+.stat-value { font-size: 22px; font-weight: 800; color: var(--orange); font-family: 'Courier New', monospace; }
+.stat-label { font-size: 10px; color: var(--text-muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ── Fruit ──────────────────────────────────────────────────── */
+.fruit-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.fruit-btn  { padding: 9px 18px; border: 1px solid var(--border-light); border-radius: 8px; background: var(--bg); color: var(--text-muted); cursor: pointer; font-size: 13px; transition: all 0.15s; font-family: inherit; font-weight: 500; }
+.fruit-btn:hover { border-color: var(--orange-border); color: var(--orange); background: var(--orange-dim); }
+
+/* ── Email highlight ────────────────────────────────────────── */
+.email-text { line-height: 2; font-family: 'Courier New', monospace; font-size: 12px; color: var(--text-muted); }
+.email-hl   { color: var(--orange); font-weight: 600; background: var(--orange-dim); border-radius: 3px; padding: 1px 4px; }
+
+/* ── JSON colors ────────────────────────────────────────────── */
+.json-k { color: var(--blue); }
+.json-s { color: var(--success); }
+.json-n { color: var(--orange); }
