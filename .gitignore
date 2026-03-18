@@ -37,3 +37,4 @@ htmlcov/
 # ── Misc ─────────────────────────────────────────────────────────
 .claude
 zadani.md
+node_modules/
